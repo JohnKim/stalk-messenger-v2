@@ -6,20 +6,33 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
-import AppReducer from './src/reducers';
-import AppWithNavigationState from './src/navigators/AppNavigator';
+import AppWithNavigationState from './navigators';
+import configureStore from './store/configureStore';
 
 export default class S5Messenger extends React.Component {
 
-  store = createStore(AppReducer);
+  state = {
+    isLoading: true,
+    store: null,
+  };
+
+  componentDidMount() {
+    var store = configureStore(() => this.setState({isLoading: false}));
+    this.setState({store});
+  }
 
   render() {
+
+    if (this.state.isLoading) {
+      return null;
+    }
+
     return (
-      <Provider store={this.store}>
+      <Provider store={this.state.store}>
         <AppWithNavigationState />
       </Provider>
     );
   }
 }
 
-export default ReduxExampleApp;
+export default S5Messenger;
