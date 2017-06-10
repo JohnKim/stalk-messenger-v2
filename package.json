@@ -4,12 +4,15 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "reset": "watchman watch-del-all && rm -rf node_modules/ && npm cache clean && npm install && npm start -- --reset-cache"
   },
   "dependencies": {
     "parse": "github:s5platform/Parse-SDK-JS",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.2",
+    "react-native-linear-gradient": "^2.0.0",
+    "react-native-swiper": "^1.5.4",
     "react-native-vector-icons": "^4.1.1",
     "react-navigation": "^1.0.0-beta.11",
     "react-redux": "^5.0.5",

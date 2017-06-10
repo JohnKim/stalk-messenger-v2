@@ -15,27 +15,27 @@ const styles = StyleSheet.create({
   },
 });
 
-const SignInScreen = ({ navigation }) => (
+const LoginScreen = ({ navigation }) => (
   <View style={styles.container}>
     <Text style={styles.welcome}>
-      IntroScreen
+      Screen A
     </Text>
     <Text style={styles.instructions}>
       This is great
     </Text>
     <Button
-      onPress={() => navigation.dispatch({ type: 'Main' })}
-      title="Main"
+      onPress={() => navigation.dispatch({ type: 'Login' })}
+      title="Log in"
     />
   </View>
 );
 
-SignInScreen.propTypes = {
+LoginScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-SignInScreen.navigationOptions = {
-  title: 'Main',
+LoginScreen.navigationOptions = {
+  title: 'Log In',
 };
 
-export default SignInScreen;
+export default LoginScreen;

@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import AuthButton from '../../AuthButton';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,6 +24,7 @@ const MemberScreen = ({ navigation }) => (
     <Text style={styles.instructions}>
       This is great
     </Text>
+    <AuthButton />
   </View>
 );
 

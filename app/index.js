@@ -1,15 +1,10 @@
-/**
- * @flow
- */
-
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import AppReducer from './reducers';
+import AppWithNavigationState from './navigator';
+import configureStore from './store';
 
-import AppWithNavigationState from './navigators';
-import configureStore from './store/configureStore';
-
-export default class S5Messenger extends React.Component {
+export default class s5messenger extends React.Component {
 
   state = {
     isLoading: true,
@@ -33,6 +28,5 @@ export default class S5Messenger extends React.Component {
       </Provider>
     );
   }
-}
 
-export default S5Messenger;
+}
