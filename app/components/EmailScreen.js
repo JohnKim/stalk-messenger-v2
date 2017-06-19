@@ -1,10 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View, Image, TouchableHighlight, Button, TextInput, KeyboardAvoidingView } from "react-native";
 import { S5Colors, S5Icon, S5Button, S5Header } from "s5-components";
+import { checkEmail } from "s5-utils";
 import { connect } from "react-redux";
 
-class SetupScreen extends React.Component {
-  static navigationOptions = { header: null };
+class EmailScreen extends React.Component {
+  static navigationOptions = {header: null};
 
   constructor(props) {
     super(props);
@@ -14,14 +15,15 @@ class SetupScreen extends React.Component {
   }
 
   _onPressStart = () => {
-    this.props.navigation.navigate("Email");
+    console.log(this.props);
+    this.props.navigation.navigate("Confirm", { email: this.state.email });
   };
 
-  _onChangeText = text => {
-    this.setState({ text }, () => {
-      if (text) {
+  _onChangeText = email => {
+    this.setState({ email }, () => {
+      if (checkEmail(email)) {
         this.setState({ enabled: true });
-      } else {
+      }else{
         this.setState({ enabled: false });
       }
     });
@@ -30,24 +32,27 @@ class SetupScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <S5Header enabled={this.state.enabled} onSubmit={this._onPressStart} style={{ backgroundColor: S5Colors.primary }} />
+        <S5Header left={"arrow-round-back"} enabled={this.state.enabled} onSubmit={this._onPressStart} style={{ backgroundColor: S5Colors.primary }} />
         <KeyboardAvoidingView style={styles.container} behavior="padding">
           <View>
-            <Text style={styles.message}>{"Your Messenger Server URL"}</Text>
+            <Text style={styles.message}>{"E-mail Address"}</Text>
           </View>
           <View style={{ height: 43 }}>
             <TextInput
               style={{ height: 43, flex: 1, color: "#FFFFFF", fontSize: 20 }}
               selectionColor={"#FFFFFF"}
               onChangeText={this._onChangeText}
-              placeholder={"messenger.stalk.io"}
+              placeholder={"Email Address"}
+              keyboardType={"email-address"}
               autoCapitalize={"none"}
               autoCorrect={false}
               autoFocus={true}
             />
           </View>
           <View>
-            <Text style={styles.message}>{"This is the address you use to sign in to your own service."}</Text>
+            <Text style={styles.message}>
+              {"We suggest using your work email if you're creating a team for your business, department or project."}
+            </Text>
           </View>
         </KeyboardAvoidingView>
       </View>
@@ -69,4 +74,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = connect()(SetupScreen);
+module.exports = connect()(EmailScreen);

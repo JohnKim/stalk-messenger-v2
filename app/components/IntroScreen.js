@@ -16,12 +16,13 @@ class IntroScreen extends React.Component {
     header: null
   };
 
-  _onPressBack = () => {
-    this.props.navigator.pop();
-  };
+  constructor(props) {
+    super(props);
+    console.log(props);
+  }
 
   _onPressStart = () => {
-    this.props.skipIntro().then(() => this.props.navigator.resetTo({ name: null }));
+    this.props.navigation.navigate("Setup");
   };
 
   render() {
@@ -79,14 +80,14 @@ class IntroScreen extends React.Component {
                     {/* Image */}
                   </View>
                   <Text style={styles.slideTitle}>
-                    {"Slide No 2"}
+                    {"Slide No 3"}
                   </Text>
                   <Text style={styles.slideDesc}>
-                    {"Slide No 2 Description"}
+                    {"Slide No 3 Description"}
                   </Text>
                 </View>
                 <View style={styles.buttons}>
-                  <S5Button caption="Start" onPress={this._onPressStart} style={{ margin: 10 }} />
+                  <S5Button title="Start" onPress={this._onPressStart} color={S5Colors.primaryText} buttonColor={'#FFFFFF'} buttonStyle={{flex:1}}/>
                 </View>
               </LinearGradient>
             </Image>
@@ -103,7 +104,8 @@ const windowHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: S5Colors.primary
   },
   item: {
     width: windowWidth,
@@ -122,7 +124,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "transparent"
   },
   slideTitle: {
     marginTop: 100,
@@ -137,11 +138,12 @@ const styles = StyleSheet.create({
     fontWeight: "300"
   },
   buttons: {
-    //alignItems: "center",
-    //alignSelf: "center",
-    //justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    justifyContent: "center",
     flexDirection: "row",
-    marginBottom: 50
+    paddingHorizontal:10,
+    marginBottom: 100
   }
 });
 

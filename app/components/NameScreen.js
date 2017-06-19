@@ -1,25 +1,32 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, TouchableHighlight, Button, TextInput, KeyboardAvoidingView } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableHighlight, Button, TextInput, KeyboardAvoidingView, Keyboard } from "react-native";
 import { S5Colors, S5Icon, S5Button, S5Header } from "s5-components";
 import { connect } from "react-redux";
 
-class SetupScreen extends React.Component {
-  static navigationOptions = { header: null };
+class NameScreen extends React.Component {
+  static navigationOptions = {header: null};
 
   constructor(props) {
     super(props);
+
+    let email = props.navigation.state.params.email;
+    let username = email.substring(0, email.indexOf("@"));
+
     this.state = {
-      enabled: false
+      username,
+      enabled: (username ? true : false),
     };
   }
 
   _onPressStart = () => {
-    this.props.navigation.navigate("Email");
+    // TODO 로직 구현 필요!
+    Keyboard.dismiss();
+    this.props.navigation.navigate("Tab");
   };
 
-  _onChangeText = text => {
-    this.setState({ text }, () => {
-      if (text) {
+  _onChangeText = username => {
+    this.setState({ username }, () => {
+      if (username) {
         this.setState({ enabled: true });
       } else {
         this.setState({ enabled: false });
@@ -30,24 +37,21 @@ class SetupScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <S5Header enabled={this.state.enabled} onSubmit={this._onPressStart} style={{ backgroundColor: S5Colors.primary }} />
+        <S5Header left={"arrow-round-back"} enabled={this.state.enabled} onSubmit={this._onPressStart} style={{backgroundColor: S5Colors.primary}} />
         <KeyboardAvoidingView style={styles.container} behavior="padding">
           <View>
-            <Text style={styles.message}>{"Your Messenger Server URL"}</Text>
+            <Text style={styles.message}>{"Choose a Username"}</Text>
           </View>
           <View style={{ height: 43 }}>
             <TextInput
               style={{ height: 43, flex: 1, color: "#FFFFFF", fontSize: 20 }}
               selectionColor={"#FFFFFF"}
+              value={this.state.username}
               onChangeText={this._onChangeText}
-              placeholder={"messenger.stalk.io"}
-              autoCapitalize={"none"}
+              placeholder={"Your Name"}
               autoCorrect={false}
               autoFocus={true}
             />
-          </View>
-          <View>
-            <Text style={styles.message}>{"This is the address you use to sign in to your own service."}</Text>
           </View>
         </KeyboardAvoidingView>
       </View>
@@ -69,4 +73,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = connect()(SetupScreen);
+module.exports = connect()(NameScreen);
